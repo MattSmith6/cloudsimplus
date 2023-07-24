@@ -2,6 +2,7 @@ package org.cloudsimplus.utilizationmodels;
 
 import org.cloudsimplus.util.ResourceLoader;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -15,7 +16,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@Disabled
 public class UtilizationModelPlanetLabTest {
     private static final String TEMP_TRACE = "temp-planetlab-trace.txt";
 

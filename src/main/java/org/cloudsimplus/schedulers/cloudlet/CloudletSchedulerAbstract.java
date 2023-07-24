@@ -257,7 +257,8 @@ public abstract class CloudletSchedulerAbstract implements CloudletScheduler {
             cle.setStatus(Cloudlet.Status.INEXEC);
             cle.setFileTransferTime(fileTransferTime);
             addCloudletToExecList(cle);
-            return fileTransferTime + Math.abs(cle.getCloudletLength()/getPeCapacity()) ;
+
+            return fileTransferTime + Math.abs(cloudletEstimatedFinishTime(cle, vm.getSimulation().clock()));
         }
 
         // No enough free PEs, then add Cloudlet to the waiting queue
@@ -1160,7 +1161,8 @@ public abstract class CloudletSchedulerAbstract implements CloudletScheduler {
     public double getAllocatedMipsForCloudlet(final CloudletExecution cle, final double time, final boolean log) {
         final Cloudlet cloudlet = cle.getCloudlet();
         final String resourceName = log ? "CPU" : "";
-        return getAbsoluteCloudletResourceUtilization(cloudlet, cloudlet.getUtilizationModelCpu(), time, getAvailableMipsByPe(), resourceName, false);
+        final double totalMipsAllowedToUse = getAvailableMipsByPe() * cle.getPesNumber();
+        return getAbsoluteCloudletResourceUtilization(cloudlet, cloudlet.getUtilizationModelCpu(), time, totalMipsAllowedToUse, resourceName, false);
     }
 
     @Override
